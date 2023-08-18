@@ -1,0 +1,39 @@
+<script> 
+
+  //やりたい動きを用意
+  function domFinished(){
+
+    //URLのパラメータを制御したいaタグのクラス名を格納
+    let cls = document.getElementsByClsassName("[URLのパラメータを制御したいaタグのクラス名]");
+
+    //URLのパラメータを制御したいaタグのクラス名をあるだけ回して取得
+    for (i = 0; i < cls.length; i++) {
+
+      //こねくり回したいURLを取得して変数に格納
+      let tgtHref = cls[i].getAttribute('href');
+
+      //空の変数をセット
+      let newHref = '';
+
+      //取得したURLの中に?があるかチェック
+      let changeParam = tgtHref.indexOf('?');
+
+      //こねくり回したいURLに?があるかないかで分岐
+      if(changeParam !== -1) {//URLのパラメータに?が付いてたら
+        let newHref = tgtHref+'&param'+( '00' + (i+1) ).slice( -2 );//末尾に&で新たなパラメータを追加し、回した数値を付与
+        //上でこねくり回して作成した値を置き換え
+        cls[i].setAttribute('href', newHref);
+      }
+      else {//URLのパラメータに?が付いてなかったら
+        let newHref = tgtHref+'?param'+( '00' + (i+1) ).slice( -2 );//末尾に?で新たなパラメータを追加し、回した数値を付与
+        //上でこねくり回して作成した値を置き換え
+        cls[i].setAttribute('href', newHref);
+      }
+    }
+
+  }
+
+  //DOMの読み込みが完了したら発火
+  document.addEventListener('DOMContentLoaded', domFinished);
+
+</script>
